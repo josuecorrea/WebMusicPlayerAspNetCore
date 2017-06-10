@@ -4,15 +4,33 @@
 }
 
 <form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="NewUpload">
-    <div class="form-group">
-        <div class="col-md-10">
-            <p>Upload one or more files using this form:</p>
-            <input type="file" name="files" multiple />
+
+    <div class="jumbotron">
+        <div class="col-lg-12">
+            <p>Select music genre:</p>
+            <select name="genre" id="genre" class="input input-group">
+                <option value="axe">Axe</option>
+                <option value="Forro">Forro</option>
+                <option value="Funk">Funk</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Sertanejo">Sertanejo</option>
+                <option value="Rap">Rap</option>
+                <option value="HipHop">HipHop</option>
+                <option value="MPB">MPB</option>
+                <option value="Pagode">Pagode</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Samba">Samba</option>
+            </select>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="submit" value="Upload" />
+
+        <div class="col-lg-12">
+            <p>Upload one or more files using this form:</p>
+            <input type="file" name="files" multiple class="input input-group" />
+        </div>
+
+        <div class="col-lg-12">
+            <input type="submit" value="Upload" class="btn btn-primary" />
         </div>
     </div>
 </form>
