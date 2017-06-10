@@ -24,7 +24,6 @@ namespace WebMusicPlayerAspNetCore.Controllers
             _env = env;
         }
         
-
         public IActionResult Index()
         {
             return View();
@@ -46,15 +45,13 @@ namespace WebMusicPlayerAspNetCore.Controllers
 
             long size = files.Sum(f => f.Length);
 
-            var filePath = Path.GetTempFileName();
-
-            foreach (var formFile in files)
+            foreach (var file in files)
             {
-                if (formFile.Length > 0)
+                if (file.Length > 0)
                 {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    using (var stream = new FileStream(Path.Combine(userDirectory, file.FileName), FileMode.Create))
                     {
-                        await formFile.CopyToAsync(stream);
+                        await file.CopyToAsync(stream);
                     }
                 }
             }
