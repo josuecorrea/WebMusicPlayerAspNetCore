@@ -9,20 +9,20 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using WebMusicPlayerAspNetCore.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebMusicPlayerAspNetCore.Controllers
 {
+    [Authorize]
     public class MusicController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHostingEnvironment _env;
-        private readonly IFileProvider _fileProvider;
 
         public MusicController(UserManager<ApplicationUser> userManager, IHostingEnvironment env)
         {
             _userManager = userManager;
             _env = env;
-            // _fileProvider = fileProvider;
         }
 
         public async Task<IActionResult> Index()
@@ -35,12 +35,13 @@ namespace WebMusicPlayerAspNetCore.Controllers
             IDirectoryContents contents = provider.GetDirectoryContents("");
             
             var listOfContents = new List<ListOfContents>();
+            var root = Path.Combine("uploads", "music");
 
             foreach (var item in contents)
             {
                 listOfContents.Add(new ListOfContents {
                     Name = item.Name,
-                    Path = item.PhysicalPath,
+                    Path = Path.Combine(root, user.Id, item.Name),
                     Size = item.Length
                 });
             }

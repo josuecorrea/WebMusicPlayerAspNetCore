@@ -1,37 +1,40 @@
 
 @{ 
-    //var list = ViewBag.Contents;
+    var list = (List<WebMusicPlayerAspNetCore.Helpers.ListOfContents>)ViewBag.Contents;
 }
 
-<h2>Index</h2>
+<h2>My Musics</h2>
 
 <div>
-    <table class="table table-bordered table-condensed">
+    <table class="table table-bordered table-condensed table-striped">
         <thead>
             <tr>
                 <td>Music</td>
+                <td>Name</td>
                 <td>Genero</td>
-                <td>Duration</td>
-                <td>Artist</td>
                 <td>Image</td>
             </tr>
         </thead>
         <tbody>
-            <tr>                
-                <td style="width:100px; padding-top:15px;">
-                    <span>
-                        <audio controls="controls">
-                            <source src="uploads/music/4c10b635-0a7e-4e39-b249-6c2e4c6956d7/ABELVOLKS%202017%20-%20HOUSE%20BASS%20-%20Dj%20Pedro%20-%20thuL586jNSI%20-%20mp3.mp3" type="audio/mp3" />
-                        </audio>
-                    </span>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="width:50px;">
-                    <img src="images\energy.jpg" height='50' width='50' />
-                </td>
-            </tr>
+            @foreach (var music in list)
+            {
+                <tr>
+                    <td style="width:100px; padding-top:15px;">
+                        <span>
+                            <audio controls="controls">
+                                <source src="@music.Path" type="audio/mp3" />
+                            </audio>
+                        </span>
+                    </td>
+                    <td style="width:550px; padding-top:20px;">
+                        @music.Name
+                    </td>
+                    <td></td>
+                    <td style="width:50px;">
+                        <img src="images\energy.jpg" height='50' width='50' />
+                    </td>
+                </tr>
+            }         
             
         </tbody>
     </table>
