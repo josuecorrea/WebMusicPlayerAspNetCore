@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using WebMusicPlayerAspNetCore.Models;
 
 namespace WebMusicPlayerAspNetCore.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -20,7 +31,8 @@ namespace WebMusicPlayerAspNetCore.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        [Authorize]
+        public async Task<IActionResult> Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
