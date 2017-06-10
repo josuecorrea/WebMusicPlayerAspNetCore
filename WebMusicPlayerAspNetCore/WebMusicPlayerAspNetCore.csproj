@@ -11,6 +11,10 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-WebMusicPlayerAspNetCore-c443e825-32be-405d-801b-9ba9ac0af7ff</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\images\energy.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
@@ -34,6 +38,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Music\" />
     <Folder Include="Views\Upload\" />
     <Folder Include="wwwroot\uploads\music\" />
   </ItemGroup>
