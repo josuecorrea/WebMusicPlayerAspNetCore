@@ -1,0 +1,10 @@
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.deps.json
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.runtimeconfig.json
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.runtimeconfig.dev.json
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.dll
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.pdb
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Release\netcoreapp1.1\UserSecretsAssemblyInfo.cs
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.AssemblyInfo.cs
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.dll
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.pdb
+C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Release\netcoreapp1.1\WebMusicPlayerAspNetCore.csprojResolveAssemblyReference.cache

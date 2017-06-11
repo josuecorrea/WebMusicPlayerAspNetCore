@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace WebMusicPlayerAspNetCore.Controllers
 {
@@ -23,40 +27,34 @@ namespace WebMusicPlayerAspNetCore.Controllers
             _userManager = userManager;
             _env = env;
         }
-        
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> NewUpload(IList<IFormFile> files)
         {
             var _user = await _userManager.GetUserAsync(User);
-            var uploads = Path.Combine(_env.WebRootPath, "uploads", "music");
 
-            var userDirectory = Path.Combine(uploads, _user.Id);
+           
+            CloudStorageAccount storageAccount = new CloudStorageAccount(
+    new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
+    "<storage-account-name>",
+    "<access-key>"), true);
 
-            if (!Directory.Exists(userDirectory))
-            {
-                Directory.CreateDirectory(userDirectory);
-            }
-
-            long size = files.Sum(f => f.Length);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference(_user.Id);
+            await container.CreateIfNotExistsAsync();
 
             foreach (var file in files)
             {
-                if (file.Length > 0)
-                {
-                    using (var stream = new FileStream(Path.Combine(userDirectory, file.FileName), FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                }
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(file.FileName);
+                await blockBlob.UploadFromStreamAsync(file.OpenReadStream());
             }
 
-            //return Ok(new { count = file.Count, size, filePath });    
             return View("Index");
         }
     }

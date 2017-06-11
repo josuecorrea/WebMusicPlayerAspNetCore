@@ -31,6 +31,11 @@ namespace WebMusicPlayerAspNetCore.Controllers
             var uploads = Path.Combine(_env.WebRootPath, "uploads", "music");
             var userDirectory = Path.Combine(uploads, user.Id);
 
+            if (!Directory.Exists(userDirectory))
+            {
+                Directory.CreateDirectory(userDirectory);
+            }
+
             IFileProvider provider = new PhysicalFileProvider(userDirectory);
             IDirectoryContents contents = provider.GetDirectoryContents("");
             
