@@ -42,7 +42,6 @@
   <ItemGroup>
     <Folder Include="Views\Music\" />
     <Folder Include="Views\Upload\" />
-    <Folder Include="wwwroot\uploads\music\" />
   </ItemGroup>
 
 </Project>

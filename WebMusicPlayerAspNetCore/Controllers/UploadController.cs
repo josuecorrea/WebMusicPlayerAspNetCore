@@ -40,6 +40,7 @@ namespace WebMusicPlayerAspNetCore.Controllers
             var _user = await _userManager.GetUserAsync(User);
 
            
+
             CloudStorageAccount storageAccount = new CloudStorageAccount(
     new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
     "<storage-account-name>",
@@ -48,6 +49,11 @@ namespace WebMusicPlayerAspNetCore.Controllers
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(_user.Id);
             await container.CreateIfNotExistsAsync();
+
+            await container.SetPermissionsAsync(new BlobContainerPermissions
+            {
+                PublicAccess = BlobContainerPublicAccessType.Blob
+            });
 
             foreach (var file in files)
             {

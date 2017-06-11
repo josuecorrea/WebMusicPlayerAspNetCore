@@ -10,6 +10,8 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using WebMusicPlayerAspNetCore.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace WebMusicPlayerAspNetCore.Controllers
 {
@@ -28,31 +30,61 @@ namespace WebMusicPlayerAspNetCore.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var uploads = Path.Combine(_env.WebRootPath, "uploads", "music");
-            var userDirectory = Path.Combine(uploads, user.Id);
+            CloudStorageAccount storageAccount = new CloudStorageAccount(
+    new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
+    "<storage-account-name>",
+    "<access-key>"), true);
 
-            if (!Directory.Exists(userDirectory))
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference(user.Id);
+            await container.CreateIfNotExistsAsync();
+
+            var listCloudBlob = new List<CloudBlockBlob>();
+
+            BlobContinuationToken token = null;
+            do
             {
-                Directory.CreateDirectory(userDirectory);
-            }
+                BlobResultSegment resultSegment = await container.ListBlobsSegmentedAsync(token);
+                token = resultSegment.ContinuationToken;
 
-            IFileProvider provider = new PhysicalFileProvider(userDirectory);
-            IDirectoryContents contents = provider.GetDirectoryContents("");
-            
+                foreach (IListBlobItem item in resultSegment.Results)
+                {
+                    if (item.GetType() == typeof(CloudBlockBlob))
+                    {
+                        CloudBlockBlob blob = (CloudBlockBlob)item;
+                        listCloudBlob.Add(blob);
+                        Console.WriteLine("Block blob of length {0}: {1}", blob.Properties.Length, blob.Uri);
+                    }
+
+                    else if (item.GetType() == typeof(CloudPageBlob))
+                    {
+                        CloudPageBlob pageBlob = (CloudPageBlob)item;
+
+                        Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
+                    }
+
+                    else if (item.GetType() == typeof(CloudBlobDirectory))
+                    {
+                        CloudBlobDirectory directory = (CloudBlobDirectory)item;
+
+                        Console.WriteLine("Directory: {0}", directory.Uri);
+                    }
+                }
+            } while (token != null);
+
             var listOfContents = new List<ListOfContents>();
-            var root = Path.Combine("uploads", "music");
-
-            foreach (var item in contents)
+            foreach (var item in listCloudBlob)
             {
-                listOfContents.Add(new ListOfContents {
+                listOfContents.Add(new ListOfContents
+                {
                     Name = item.Name,
-                    Path = Path.Combine(root, user.Id, item.Name),
-                    Size = item.Length
+                    Path = item.Uri.ToString(),
+                    Size = item.Properties.Length
                 });
             }
 
             ViewBag.Contents = listOfContents.ToList();
-            
+
             return View();
         }
     }

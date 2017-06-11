@@ -6,5 +6,4 @@ C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\bin\
 C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Debug\netcoreapp1.1\WebMusicPlayerAspNetCore.AssemblyInfo.cs
 C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Debug\netcoreapp1.1\WebMusicPlayerAspNetCore.dll
 C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Debug\netcoreapp1.1\WebMusicPlayerAspNetCore.pdb
-C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Debug\netcoreapp1.1\WebMusicPlayerAspNetCore.csprojResolveAssemblyReference.cache
 C:\Projetos\MeusTutoriais\WebMusicPlayerAspNetCore\WebMusicPlayerAspNetCore\obj\Debug\netcoreapp1.1\UserSecretsAssemblyInfo.cs
